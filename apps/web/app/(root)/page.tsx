@@ -4,7 +4,7 @@ import FeatureSection from "@/components/ui/FeatureSection";
 
 export default function Home() {
   return (
-    <main>
+    <main className="pt-12">
       <Hero />
       <ProductDemo />
       <FeatureSection />
