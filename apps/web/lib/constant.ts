@@ -34,3 +34,7 @@ export const FEATURE_SECTION = {
     },
   ],
 };
+
+export const DASHBOARD = {
+  CREATE_MEET: "Create a Meeting",
+};

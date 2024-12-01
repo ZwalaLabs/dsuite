@@ -1,6 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .main-wrapper {
+    @apply flex flex-col max-w-7xl mx-auto px-8 sm:px-6 md:px-[100] pt-40;
+  }
+
+  .action-bar {
+    @apply flex justify-center;
+  }
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
