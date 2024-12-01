@@ -5,6 +5,7 @@ export const HOMEPAGE = {
 		"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti dignissimos incidunt libero sed sit eius, aut, culpa ex inventore unde ut est qui saepe consequuntur provident amet cum nostrum eos?",
 	HERO_SECTION_BUTTON: "Start Meeting",
 };
+
 export const FEATURE_SECTION = {
 	FEATURE_SECTION_HEADING: "Features",
 	FEATURE_SECTION_SHORTDESC:
@@ -35,14 +36,25 @@ export const FEATURE_SECTION = {
 	],
 };
 
+
 export const DASHBOARD = {
 	CREATE_MEET: "Create a Meeting",
+	SUCCESSFUL_INVITE: 'Successful Invites',
 };
 
 export const FORM_CONTENT = {
-	WALLET_LABEL: "Wallet Number",
-	WALLET_PLACEHOLDER: "Enter wallet number",
-  SUCCESSFUL_INVITE: 'Successful Invites',
+	AIRDROPS_FORM:{
+		LABEL: "Wallet Number",
+		PLACEHOLDER: "Enter wallet number",
+		TITLE: "Invite People",
+		DESCRIPTION: "Enter the wallet number to invite people",
+	},
+	CREATE_CONTRACT_FORM:{
+		LABEL: "Meeting Name",
+		PLACEHOLDER: "Enter meeting name",
+		TITLE: 'Create Meeting',
+		DESCRIPTION: 'Enter the meeting name to create a meeting'
+	}
 };
 
 export const AIRDROPS_RECEIVED_USER_LIST = [{

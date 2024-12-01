@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 // import Image from "next/image";
 import { Button } from "./button";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const Navbar: React.FC = () => {
   return (
@@ -15,12 +16,7 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
         <div className="text-lg">
-          <Link href="/login">
-            <Button className="text-sm rounded-sm" variant="gradientButton">
-              {/* account login */}
-              Login
-            </Button>
-          </Link>
+          <ConnectButton accountStatus="address" showBalance={false} chainStatus="name" />
         </div>
         {/* to-do: handle authentication means logout when user is logged in */}
       </div>
