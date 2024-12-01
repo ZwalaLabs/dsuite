@@ -10,6 +10,10 @@
   .action-bar {
     @apply flex justify-center;
   }
+
+  .meeting-list {
+    @apply p-10;
+  }
 }
 @layer base {
   :root {
