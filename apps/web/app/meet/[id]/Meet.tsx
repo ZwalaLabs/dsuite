@@ -75,13 +75,12 @@ export default function Meet() {
     };
 
     return () => {
-      if (localStream.stream) {
-        localStream.stream.getTracks().forEach((track) => track.stop());
-      }
+      if (localStream.stream) localStream.stream.getTracks().forEach((track) => track.stop());
+
       if (pc.signalingState !== "closed") pc.close();
       peerConnection.current = null;
     };
-  }, []); // Remove localStream.stream from dependencies
+  }, [localStream.stream]);
 
   // Update video elements when streams change
   useEffect(() => {
@@ -128,7 +127,7 @@ export default function Meet() {
     } finally {
       setIsLoading(false);
     }
-  }, []); // Remove dependencies to avoid recreating function
+  }, [localStream.isEnabled, localStream.stream]);
 
   async function createOffer() {
     try {
@@ -177,10 +176,10 @@ export default function Meet() {
       // Listen for remote ICE candidates
       onSnapshot(answerCandidates, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
+          if (change.type === "added" && pc.remoteDescription) {
             const candidate = new RTCIceCandidate(change.doc.data());
             console.log("Adding ICE candidate", candidate);
-            pc.addIceCandidate(candidate);
+            pc?.addIceCandidate(candidate);
           }
         });
       });
@@ -235,7 +234,7 @@ export default function Meet() {
       // Listen for remote ICE candidates
       onSnapshot(offerCandidates, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
+          if (change.type === "added" && pc.remoteDescription) {
             const candidate = new RTCIceCandidate(change.doc.data());
             pc.addIceCandidate(candidate);
           }
