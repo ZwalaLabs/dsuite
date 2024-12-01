@@ -8,6 +8,7 @@ import {
   DASHBOARD,
   FORM_CONTENT,
 } from "@/lib/constant";
+import { X } from "lucide-react";
 
 type Meeting = {
   id: number;
@@ -78,6 +79,16 @@ const MeetingList: React.FC<MeetingListProps> = ({ meetings }) => {
         Component={AirdropForm}
         AdditionalComponent={() => (
           <>
+            <div className="flex justify-between">
+              <Button
+                type="button"
+                variant="gradientButton"
+                className="text-red-600"
+              >
+                Delete Meeting
+                <X />
+              </Button>
+            </div>
             <hr />
             {/* heading  */}
             <h1 className="text-green-500">{DASHBOARD.SUCCESSFUL_INVITE}</h1>
