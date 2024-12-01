@@ -141,8 +141,8 @@ export default function Meet() {
 
       // Reference Firestore collections
       const callDoc = doc(db, "calls", params.id);
-      const offerCandidates = collection(callDoc, "offer");
-      const answerCandidates = collection(callDoc, "answer");
+      const offerCandidates = collection(callDoc, "offerCandidates");
+      const answerCandidates = collection(callDoc, "answerCandidates");
 
       // Get candidates for caller
       pc.onicecandidate = async (event) => {
@@ -199,8 +199,8 @@ export default function Meet() {
       const pc = peerConnection.current;
 
       const callDoc = doc(db, "calls", params.id);
-      const answerCandidates = collection(callDoc, "answer");
-      const offerCandidates = collection(callDoc, "offer");
+      const offerCandidates = collection(callDoc, "offerCandidates");
+      const answerCandidates = collection(callDoc, "answerCandidates");
 
       // Get candidates for answerer
       pc.onicecandidate = (event) => {
