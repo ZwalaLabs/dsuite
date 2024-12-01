@@ -29,9 +29,7 @@ const MeetingList: React.FC<MeetingListProps> = ({ meetings }) => {
                 <h2 className="text-lg font-semibold text-gray-800">
                   {meeting.title}
                 </h2>
-                <p className="text-sm text-gray-500">
-                  {new Date(meeting.date).toLocaleString()}
-                </p>
+                <p className="text-sm text-gray-500">{meeting.date}</p>
                 <p className="text-sm text-gray-500">
                   Address: {meeting.address}
                 </p>
