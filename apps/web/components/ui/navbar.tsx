@@ -5,7 +5,8 @@ import { Button } from "./button";
 
 const Navbar: React.FC = () => {
 	return (
-		<nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
+		<nav className="flex surface-background neutral-border-medium radius-m-4 shadow-l">
+            <div className='flex p-4 surface-background neutral-border-medium border-gray-300 radius-m-4 shadow-l w-[400] mx-auto justify-between'>
 			<div className="text-2xl font-bold">
 				<Link href="/">
                     {/* logo commented for the time being */}
@@ -24,6 +25,7 @@ const Navbar: React.FC = () => {
 				</Link>
 			</div>
             {/* to-do: handle authentication means logout when user is logged in */}
+            </div>
 		</nav>
 	);
 };
