@@ -1,5 +1,4 @@
-import React from "react";
-import Navbar from "../../components/ui/navbar";
+import Navbar from "@/components/ui/navbar";
 
 export default function Layout({
   children,
