@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
         </div>
         <div className="text-lg">
           <Link href="/login">
-            <Button className="text-sm" variant="gradientButton">
+            <Button className="text-sm rounded-sm" variant="gradientButton">
               {/* account login */}
               Login
             </Button>
