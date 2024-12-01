@@ -34,11 +34,11 @@ const FeatureList: React.FC = () => {
 
 const FeatureSection: React.FC = () => {
   return (
-    <div className="container mx-auto mt-32">
+    <div className="container mx-auto mt-12 md:mt-32 p-10">
       <h2 className="mt-8 text-3xl font-semibold text-primary">
         {FEATURE_SECTION.FEATURE_SECTION_HEADING}
       </h2>
-      <p className="mt-4 text-5xl sm:text-4xl text-slate-900 font-extrabold tracking-tight dark:text-slate-50 ">
+      <p className="mt-4 text-2xl md:text-5xl text-slate-900 font-extrabold tracking-tight dark:text-slate-50 ">
         {FEATURE_SECTION.FEATURE_SECTION_SHORTDESC}
       </p>
 
