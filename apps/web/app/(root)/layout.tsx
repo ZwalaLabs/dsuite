@@ -1,5 +1,5 @@
 import React from "react";
-// import Navbar from "../../components/ui/Navbar";
+import Navbar from "../../components/ui/navbar";
 
 export default function Layout({
   children,
@@ -8,7 +8,7 @@ export default function Layout({
 }>) {
   return (
     <main className="font-work-sans">
-      {/* <Navbar /> */}
+      <Navbar />
       {children}
     </main>
   );
