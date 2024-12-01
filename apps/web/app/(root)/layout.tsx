@@ -1,14 +1,11 @@
-import Navbar from "@/components/ui/navbar";
-
 export default function Layout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <main className="font-work-sans">
-      <Navbar />
-      {children}
-    </main>
-  );
+	return (
+		<main className="font-work-sans">
+			{children}
+		</main>
+	);
 }

@@ -1,7 +1,7 @@
 import MeetingList from "@/components/ui/MeetingList";
 import { DASHBOARD } from "@/lib/constant";
 import Link from "next/link";
-import React from "react";
+import CustomNavbar from "@/components/ui/customNavbar";
 
 const page = () => {
   const meetingList = [
@@ -19,6 +19,8 @@ const page = () => {
     },
   ];
   return (
+    <>
+    <CustomNavbar />
     <div className="main-wrapper">
       <div className="action-bar">
         <Link
@@ -37,6 +39,7 @@ const page = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
