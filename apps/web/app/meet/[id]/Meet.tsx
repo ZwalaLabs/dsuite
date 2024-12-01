@@ -247,36 +247,65 @@ export default function Meet() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="text-sm text-gray-500 mb-2">Room ID: {params.id}</div>
-
-      <div className="flex gap-2">
-        <Button
-          onClick={toggleWebcam}
-          disabled={isLoading}
-          variant={localStream.isEnabled ? "destructive" : "default"}
-        >
-          {isLoading ? "Loading..." : localStream.isEnabled ? "Stop Webcam" : "Start Webcam"}
-        </Button>
-
-        {localStream.isEnabled && (
-          <>
-            <Button onClick={createOffer} variant="outline">
-              Create Call
+    <div className="flex flex-col min-h-screen bg-gray-900">
+      {/* Header with controls */}
+      <div className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-sm fixed top-0 z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="text-sm text-gray-300">Room ID: {params.id}</div>
+          <div className="flex gap-2">
+            <Button
+              onClick={toggleWebcam}
+              disabled={isLoading}
+              variant={localStream.isEnabled ? "destructive" : "default"}
+              size="sm"
+            >
+              {isLoading ? "Loading..." : localStream.isEnabled ? "Stop Webcam" : "Start Webcam"}
             </Button>
-            <Button onClick={answerCall} variant="outline">
-              Join Call
-            </Button>
-          </>
-        )}
+
+            {localStream.isEnabled && (
+              <>
+                <Button onClick={createOffer} variant="outline" size="sm">
+                  Create Call
+                </Button>
+                <Button onClick={answerCall} variant="outline" size="sm">
+                  Join Call
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-4 justify-center">
+      {/* Main video area */}
+      <div className="flex-1 mt-16 relative w-full">
+        {remoteStream.isEnabled ? (
+          // Remote video as main display when connected
+          <div className="w-full h-[calc(100vh-4rem)]">
+            <video
+              ref={remoteVideoRef}
+              className="w-full h-full object-cover"
+              autoPlay
+              playsInline
+            />
+            <div className="absolute bottom-4 left-4 text-white text-sm bg-black/50 px-2 py-1 rounded">
+              Remote
+            </div>
+          </div>
+        ) : (
+          // Status message when waiting for remote
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-gray-400 text-lg">Waiting for remote peer to join...</div>
+          </div>
+        )}
+
+        {/* Local video - positioned differently based on remote stream presence */}
         {localStream.isEnabled && (
-          <div className="relative">
+          <div
+            className={`${remoteStream.isEnabled ? "absolute bottom-4 right-4 w-72 h-48" : "w-full h-[calc(100vh-4rem)]"}`}
+          >
             <video
               ref={localVideoRef}
-              className="w-80 h-60 rounded-lg border-2 border-gray-300"
+              className={`rounded-lg ${remoteStream.isEnabled ? "w-full h-full object-cover shadow-lg" : "w-full h-full object-cover"}`}
               autoPlay
               playsInline
               muted
@@ -286,24 +315,6 @@ export default function Meet() {
             </div>
           </div>
         )}
-
-        {remoteStream.isEnabled && (
-          <div className="relative">
-            <video
-              ref={remoteVideoRef}
-              className="w-80 h-60 rounded-lg border-2 border-gray-300"
-              autoPlay
-              playsInline
-            />
-            <div className="absolute bottom-2 left-2 text-white text-sm bg-black/50 px-2 py-1 rounded">
-              Remote
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="text-sm text-gray-500">
-        {remoteStream.isEnabled ? "Connected to remote peer" : "Waiting for remote peer..."}
       </div>
     </div>
   );
