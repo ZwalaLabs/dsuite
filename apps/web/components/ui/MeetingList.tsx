@@ -1,9 +1,9 @@
-"use client";
 import React, { useState } from "react";
 import { Button } from "./button";
 import Image from "next/image";
-// import Modal from "./modal";
-import DialogFormComponent from "./modal";
+import AirdropForm from "../Form/AirdropForm";
+import AirdropModal from "../Modal/Modal";
+import { AIRDROPS_RECEIVED_USER_LIST, DASHBOARD, FORM_CONTENT } from "@/lib/constant";
 
 type Meeting = {
 	id: number;
@@ -19,7 +19,6 @@ type MeetingListProps = {
 const MeetingList: React.FC<MeetingListProps> = ({ meetings }) => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const toggleModal = () => {
-		console.log("toggle");
 		setModalOpen((modalState) => !modalState);
 	};
 	return (
@@ -52,7 +51,7 @@ const MeetingList: React.FC<MeetingListProps> = ({ meetings }) => {
 								{/* Add onclick to open modal to show meeting details */}
 								<Button
 									onClick={toggleModal}
-									className="px-4 py-2 bg-blue-500 text-white border-black-1 rounded-sm hover:bg-blue-600 transition-colors"
+									className="px-4 py-2 border border-black rounded-sm transition-colors"
 									variant="gradientButton"
 								>
 									Details
@@ -67,11 +66,25 @@ const MeetingList: React.FC<MeetingListProps> = ({ meetings }) => {
 					</li>
 				)}
 			</ul>
-			<DialogFormComponent
-				title="title"
-				description="desc"
+			<AirdropModal
+				title={FORM_CONTENT.AIRDROPS_FORM.TITLE}
+				description={FORM_CONTENT.AIRDROPS_FORM.DESCRIPTION}
 				isOpen={modalOpen}
 				onClose={toggleModal}
+				Component={AirdropForm}
+				AdditionalComponent={() => (
+					<>
+						<hr />
+						{/* heading  */}
+						<h1 className="text-green-500">{DASHBOARD.SUCCESSFUL_INVITE}</h1>
+						{/* people list */}
+						{AIRDROPS_RECEIVED_USER_LIST.map(
+							({ id, walletNumber }: { id: number; walletNumber: string }) => (
+								<p key={id}>{walletNumber}</p>
+							),
+						)}
+					</>
+				)}
 			/>
 		</div>
 	);
