@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
 import { addDoc, collection, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { useParams } from "next/navigation";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface StreamState {
   isEnabled: boolean;
@@ -75,12 +75,13 @@ export default function Meet() {
     };
 
     return () => {
-      if (localStream.stream) localStream.stream.getTracks().forEach((track) => track.stop());
-
+      if (localStream.stream) {
+        localStream.stream.getTracks().forEach((track) => track.stop());
+      }
       if (pc.signalingState !== "closed") pc.close();
       peerConnection.current = null;
     };
-  }, [localStream.stream]);
+  }, []);
 
   // Update video elements when streams change
   useEffect(() => {
@@ -93,7 +94,7 @@ export default function Meet() {
     }
   }, [localStream.stream, remoteStream.stream]);
 
-  const toggleWebcam = useCallback(async () => {
+  const toggleWebcam = async () => {
     try {
       setIsLoading(true);
 
@@ -127,7 +128,7 @@ export default function Meet() {
     } finally {
       setIsLoading(false);
     }
-  }, [localStream.isEnabled, localStream.stream]);
+  };
 
   async function createOffer() {
     try {
@@ -140,8 +141,8 @@ export default function Meet() {
 
       // Reference Firestore collections
       const callDoc = doc(db, "calls", params.id);
-      const offerCandidates = collection(callDoc, "offerCandidates");
-      const answerCandidates = collection(callDoc, "answerCandidates");
+      const offerCandidates = collection(callDoc, "offer");
+      const answerCandidates = collection(callDoc, "answer");
 
       // Get candidates for caller
       pc.onicecandidate = async (event) => {
@@ -198,8 +199,8 @@ export default function Meet() {
       const pc = peerConnection.current;
 
       const callDoc = doc(db, "calls", params.id);
-      const answerCandidates = collection(callDoc, "answerCandidates");
-      const offerCandidates = collection(callDoc, "offerCandidates");
+      const answerCandidates = collection(callDoc, "answer");
+      const offerCandidates = collection(callDoc, "offer");
 
       // Get candidates for answerer
       pc.onicecandidate = (event) => {
