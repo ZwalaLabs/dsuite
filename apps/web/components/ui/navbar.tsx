@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 // import Image from "next/image";
 import { Button } from "./button";
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navbar: React.FC = () => {
   return (
