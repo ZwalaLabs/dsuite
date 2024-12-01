@@ -13,7 +13,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "D-Suite",
-  description: "Your go-to stop for all apps for all on the chain",
+  description: "Your go-to stop for all apps on the chain",
 };
 
 export default function RootLayout({

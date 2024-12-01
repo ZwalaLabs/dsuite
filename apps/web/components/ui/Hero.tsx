@@ -1,6 +1,7 @@
 import { HOMEPAGE } from "@/lib/constant";
 import Link from "next/link";
 import React from "react";
+import { Button } from "./button";
 
 const Hero = () => {
   return (
@@ -11,15 +12,12 @@ const Hero = () => {
       <p className="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
         {HOMEPAGE.HERO_SECTION_DESCRIPTION}
       </p>
-      <div className="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
-        <Link
-          // add meeting link if logged in else navigate to login link
-          href=""
-          className="bg-slate-900 hover:bg-slate-700 focus:outline-none text-white font-semibold h-12 px-6 rounded-lg flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
-        >
+
+      <Link href="/dashboard" className="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
+        <Button variant="gradientButton" className="text-3xl font-black p-8">
           {HOMEPAGE.HERO_SECTION_BUTTON}
-        </Link>
-      </div>
+        </Button>
+      </Link>
     </div>
   );
 };
