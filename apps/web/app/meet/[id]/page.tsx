@@ -1,8 +1,11 @@
 import React from "react";
 import Meet from "./Meet";
 
-export default function page({ params }: { params: { id: string } }) {
-  console.log({ id: params.id });
+export default async function page({ params }: { params: { id: string } }) {
+  const { id } = await params;
+
+  console.log({ id });
+
   return (
     <main>
       <Meet />

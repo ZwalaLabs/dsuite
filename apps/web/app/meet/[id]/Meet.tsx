@@ -9,7 +9,15 @@ interface StreamState {
 }
 
 const servers: RTCConfiguration = {
-  iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }],
+  iceServers: [
+    {
+      urls: [
+        "stun:zxstun.l.google.com:19302",
+        "stun:stun1.l.google.com:19302",
+        "stun:stun2.l.google.com:19302",
+      ],
+    },
+  ],
   iceCandidatePoolSize: 10,
 };
 
@@ -36,7 +44,8 @@ export default function Meet() {
     const pc = new RTCPeerConnection(servers);
     peerConnection.current = pc;
 
-    // Handle remote tracks
+    // Handle remote tracks i.e. pull remote tracks from the peer connection,
+    // and add to video stream
     pc.ontrack = (event) => {
       const newRemoteStream = new MediaStream();
       event.streams[0]?.getTracks().forEach((track) => {
@@ -89,6 +98,7 @@ export default function Meet() {
 
       // Only add tracks if peer connection exists and is not closed
       if (peerConnection.current && peerConnection.current.signalingState !== "closed") {
+        // Push local tracks to the peer <connection></connection>
         stream.getTracks().forEach((track) => {
           peerConnection.current?.addTrack(track, stream);
         });
