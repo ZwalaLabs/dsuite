@@ -3,11 +3,16 @@ pragma solidity ^0.8.20;
 
 import {ParticipationNFT} from "./ParticipationNFT.sol";
 
+
+error DSuiteMeet_InvalidParticipant();
+error DSuiteMeet_InvalidID();
+
 contract DSuiteMeet {
     uint256 private meetId = 0;
 
     struct Meeting {
         uint256 id;
+        string name;
         ParticipationNFT nft;
         address owner;
         address[] participants;
@@ -15,14 +20,16 @@ contract DSuiteMeet {
 
     mapping(uint256 => Meeting) meetIdToMeeting;
     mapping(address => uint256[]) ownerToMeetIds;
-    mapping(address => mapping(uint256 => bool)) isParticipant;
+
+    event MeetingCreated( uint id, address owner);
+    event ParticipantAdded(uint id, address participant);
 
     function createMeet(string memory _event) public returns (uint256) {
         meetId++;
-        //Events to be added
+        emit MeetingCreated(meetId, msg.sender);
         ParticipationNFT newNFT = new ParticipationNFT(msg.sender, _event, _event);
         Meeting memory newMeeting =
-            Meeting({id: meetId, nft: newNFT, owner: msg.sender, participants: new address[](0)});
+            Meeting({id: meetId, name: _event, nft: newNFT, owner: msg.sender, participants: new address[](0)});
         meetIdToMeeting[meetId] = newMeeting;
         ownerToMeetIds[msg.sender].push(meetId);
 
@@ -31,14 +38,14 @@ contract DSuiteMeet {
 
     function invite(address _participant, uint256 _meetId) public returns (uint256) {
         if (_meetId > meetId || _participant == msg.sender || (meetIdToMeeting[_meetId].nft).isHolder(_participant)) {
-            //Error to be added
-            revert();
+            revert DSuiteMeet_InvalidParticipant();
         }
         Meeting storage meet = meetIdToMeeting[_meetId];
         meet.participants.push(_participant);
         if (meet.owner != msg.sender) {
-            revert();
+            revert DSuiteMeet_InvalidParticipant();
         }
+        emit ParticipantAdded(_meetId, _participant);
         ParticipationNFT nft = meet.nft;
         uint256 tokenId = nft.createToken(_participant);
         return tokenId;
@@ -50,8 +57,7 @@ contract DSuiteMeet {
 
     function meetIdToMeet(uint256 _id) public view returns (Meeting memory) {
         if (_id < meetId) {
-            //Error to be added
-            revert();
+            revert DSuiteMeet_InvalidID();
         }
         return meetIdToMeeting[_id];
     }
@@ -68,5 +74,12 @@ contract DSuiteMeet {
             return true;
         }
         return false;
+    }
+
+    function getMeetingName(uint _id) public view returns(string memory){
+        if(_id > meetId){
+            revert DSuiteMeet_InvalidID();
+        }
+        return meetIdToMeeting[_id].name;
     }
 }
